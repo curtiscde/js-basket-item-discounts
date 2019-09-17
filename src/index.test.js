@@ -13,3 +13,12 @@ test('Basket total - returns 0 price when no items added', () => {
   const price = basket.total();
   expect(price).toEqual('£0.00');
 });
+
+test('Basket total - returns price when 1 item added', () => {
+  const basket = new Basket({
+    items,
+  });
+  basket.add('FR1');
+  const price = basket.total();
+  expect(price).toEqual('£3.11');
+});
