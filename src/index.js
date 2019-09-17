@@ -1,3 +1,5 @@
+import getBasketTotal from './basketHelper';
+
 class Basket {
   constructor(pricingRules) {
     this.basketItems = [];
@@ -9,10 +11,7 @@ class Basket {
   }
 
   total() {
-    let price = 0;
-    this.basketItems.forEach((basketItemCode) => {
-      price += this.items.find((item) => item.code === basketItemCode).price;
-    });
+    const price = getBasketTotal(this.items, this.basketItems);
     const pricePounds = (price / 100).toFixed(2);
     return `£${pricePounds}`;
   }
