@@ -6,12 +6,24 @@ const bogofDiscount = (collatedBasketItem) => {
   } : null;
 };
 
+const multibuyDiscount = (collatedBasketItem, discountRule) => {
+  const discountAmount = (collatedBasketItem.quantity >= discountRule.minimumItems)
+    ? (discountRule.discountAmount * collatedBasketItem.quantity) : null;
+  return discountAmount ? {
+    itemCode: collatedBasketItem.code,
+    discountAmount,
+  } : null;
+};
+
 const getItemDiscount = (collatedBasketItem, discountRule) => {
   let discount;
   if (discountRule) {
     switch (discountRule.discountCode) {
       case 'BOGOF':
         discount = bogofDiscount(collatedBasketItem);
+        break;
+      case 'MULTIBUY':
+        discount = multibuyDiscount(collatedBasketItem, discountRule);
         break;
       default:
         break;
