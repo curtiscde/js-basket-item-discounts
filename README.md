@@ -1,1 +1,7 @@
-# js-basket-items-discounts
+# js-basket-item-discounts
+
+## Tests
+
+```
+npm run test
+```

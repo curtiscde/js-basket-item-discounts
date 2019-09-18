@@ -4,6 +4,7 @@ class Basket {
   constructor(pricingRules) {
     this.basketItems = [];
     this.items = pricingRules.items;
+    this.discountRules = pricingRules.discountRules;
   }
 
   add(itemCode) {
@@ -11,7 +12,7 @@ class Basket {
   }
 
   total() {
-    const price = getBasketTotal(this.items, this.basketItems);
+    const price = getBasketTotal(this.items, this.basketItems, this.discountRules);
     const pricePounds = (price / 100).toFixed(2);
     return `£${pricePounds}`;
   }
