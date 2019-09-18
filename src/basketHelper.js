@@ -1,3 +1,5 @@
+import getBasketDiscounts from './discountHelper';
+
 const collateBasketItems = (items, basketItems) => {
   const collatedItems = [];
   basketItems.forEach((basketItemCode) => {
@@ -15,9 +17,21 @@ const collateBasketItems = (items, basketItems) => {
   return collatedItems;
 };
 
-export default (items, basketItems) => {
-  const collatedItems = collateBasketItems(items, basketItems);
-  return collatedItems.reduce((acc, collatedItem) => (
-    acc + collatedItem.price
+const totalBasketItemPrice = (collatedBasketItems) => (
+  collatedBasketItems.reduce((acc, collatedItem) => (
+    acc + collatedItem.price * collatedItem.quantity
+  ), 0)
+);
+
+const totalBasketDiscountAmount = (collatedBasketItems, discountRules) => {
+  const discounts = getBasketDiscounts(collatedBasketItems, discountRules);
+  return discounts.reduce((acc, discount) => (
+    acc + discount.discountAmount
   ), 0);
+};
+
+export default (items, basketItems, discountRules) => {
+  const collatedBasketItems = collateBasketItems(items, basketItems);
+  return totalBasketItemPrice(collatedBasketItems)
+    - totalBasketDiscountAmount(collatedBasketItems, discountRules);
 };
