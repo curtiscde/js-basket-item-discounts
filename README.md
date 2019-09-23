@@ -1,6 +1,12 @@
 # js-basket-item-discounts
 
-## Tests
+## Setup
+
+```
+npm i
+```
+
+## Testing
 
 ```
 npm run test
